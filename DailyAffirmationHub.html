@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Affirmation Hub - Stress Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #000000;
+            --color-charcoal: #1a1a1a;
+            --color-dark-grey: #2a2a2a;
+            --color-silver-light: #E8E8E8;
+            --color-silver-medium: #D3D3D3;
+            --color-silver-dark: #C0C0C0;
+            --color-white: #FFFFFF;
+            --color-accent-gold: #D4AF37;
+            --color-accent-teal: #20B2AA;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--color-black) 0%, var(--color-charcoal) 50%, var(--color-dark-grey) 100%);
+            color: var(--color-silver-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* Subtle background animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(32, 178, 170, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, var(--color-silver-light) 0%, var(--color-silver-medium) 50%, var(--color-accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-silver-dark);
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+            margin: 20px auto 0;
+            animation: expandWidth 1s ease-out 0.3s backwards;
+        }
+
+        /* Main Message Container */
+        .message-container {
+            background: rgba(42, 42, 42, 0.6);
+            border: 1px solid var(--color-silver-dark);
+            border-radius: 12px;
+            padding: 80px 60px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(232, 232, 232, 0.1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 0.8s ease-out;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-container::before {
+            content: '💭';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .message-container::after {
+            content: '💭';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .message-text {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            color: var(--color-white);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            max-width: 800px;
+            animation: fadeInText 1.2s ease-out;
+        }
+
+        .message-text strong {
+            color: var(--color-accent-gold);
+            font-weight: 500;
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Refresh Button */
+        .refresh-btn {
+            background: linear-gradient(135deg, var(--color-accent-teal) 0%, #1a9b8e 100%);
+            color: var(--color-white);
+            border: none;
+            padding: 16px 48px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(32, 178, 170, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .refresh-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.5);
+            background: linear-gradient(135deg, #1a9b8e 0%, var(--color-accent-teal) 100%);
+        }
+
+        .refresh-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .refresh-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Secondary Button */
+        .secondary-btn {
+            background: transparent;
+            color: var(--color-silver-light);
+            border: 2px solid var(--color-silver-dark);
+            padding: 14px 40px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .secondary-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--color-accent-gold);
+            color: var(--color-accent-gold);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: var(--color-silver-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 1.4s ease-out;
+        }
+
+        .footer-divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-silver-dark), transparent);
+            margin: 15px auto;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
+        }
+
+        .message-changing {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+
+            .message-container {
+                padding: 50px 30px;
+                min-height: 250px;
+            }
+
+            .message-text {
+                font-size: 1.3rem;
+                line-height: 1.6;
+            }
+
+            .button-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .refresh-btn,
+            .secondary-btn {
+                padding: 12px 36px;
+                font-size: 0.9rem;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+
+            .message-container {
+                padding: 40px 20px;
+                border-radius: 10px;
+            }
+
+            .message-text {
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+
+            .message-container::before,
+            .message-container::after {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Daily Affirmation</h1>
+            <p class="subtitle">A moment for you</p>
+            <div class="divider"></div>
+        </header>
+
+        <div class="message-container">
+            <p class="message-text" id="messageText"></p>
+        </div>
+
+        <div class="button-container">
+            <button class="refresh-btn" id="refreshBtn">
+                🌟 Show Another Thought
+            </button>
+            <button class="secondary-btn" id="pauseBtn">
+                ⏸ Pause
+            </button>
+        </div>
+
+        <footer>
+            <div class="footer-divider"></div>
+            <p>Remember: You are doing better than you think</p>
+            <div class="footer-divider"></div>
+        </footer>
+    </div>
+
+    <script>
+        // All affirmation messages
+        const affirmations = [
+            "Feeling stressed does not mean you are failing — it means you are responding to pressure.",
+            "You are allowed to feel overwhelmed without having everything figured out right now.",
+            "Not all exhaustion is physical; mental effort also deserves rest.",
+            "Progress does not always look productive. Sometimes it looks like pausing.",
+            "Struggling silently does not make you stronger — recognizing stress makes you aware.",
+            "Stress often comes from caring deeply, not from weakness.",
+            "You do not need to earn rest by burning yourself out first.",
+            "It is okay if today's best looks different from yesterday's.",
+            "Your mind is not broken — it is reacting to sustained pressure.",
+            "Taking a break is not avoidance; it is regulation.",
+            "You are more than the deadlines you are trying to survive.",
+            "Feeling behind does not mean you are actually behind — comparison amplifies stress.",
+            "You don't have to solve everything today to be okay today.",
+            "Stress is information, not a verdict about your abilities.",
+            "Even in pressure, you are allowed to treat yourself with patience."
+        ];
+
+        let currentIndex = 0;
+        let displayedToday = [];
+        const messageText = document.getElementById('messageText');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const messageContainer = document.querySelector('.message-container');
+
+        // Initialize on page load
+        function init() {
+            // Check if today's session already has messages displayed
+            const today = new Date().toDateString();
+            const savedData = localStorage.getItem('affirmationData');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                if (data.date === today) {
+                    displayedToday = data.displayed;
+                    currentIndex = data.index;
+                } else {
+                    // New day, reset
+                    displayedToday = [];
+                    currentIndex = 0;
+                    saveSession();
+                }
+            } else {
+                displayedToday = [];
+                currentIndex = 0;
+                saveSession();
+            }
+
+            displayMessage();
+        }
+
+        // Display current message
+        function displayMessage() {
+            messageText.textContent = affirmations[currentIndex];
+            messageContainer.classList.remove('message-changing');
+            // Trigger reflow to restart animation
+            void messageContainer.offsetWidth;
+            messageContainer.classList.add('message-changing');
+            saveSession();
+        }
+
+        // Get next message
+        function getNextMessage() {
+            // If all messages have been shown today, reset
+            if (displayedToday.length === affirmations.length) {
+                displayedToday = [];
+            }
+
+            // Get a random message not yet displayed today
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * affirmations.length);
+            } while (displayedToday.includes(randomIndex));
+
+            displayedToday.push(randomIndex);
+            currentIndex = randomIndex;
+        }
+
+        // Save session data
+        function saveSession() {
+            const today = new Date().toDateString();
+            localStorage.setItem('affirmationData', JSON.stringify({
+                date: today,
+                displayed: displayedToday,
+                index: currentIndex
+            }));
+        }
+
+        // Refresh button handler
+        refreshBtn.addEventListener('click', () => {
+            refreshBtn.disabled = true;
+            getNextMessage();
+            displayMessage();
+            refreshBtn.disabled = false;
+        });
+
+        // Pause button handler
+        pauseBtn.addEventListener('click', () => {
+            pauseBtn.textContent = pauseBtn.textContent === '⏸ Pause' ? '▶ Resume' : '⏸ Pause';
+            messageContainer.style.opacity = pauseBtn.textContent === '⏸ Pause' ? '1' : '0.5';
+        });
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>

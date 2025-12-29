@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Stress Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black-primary: #000000;
+            --black-dark: #0a0a0a;
+            --charcoal: #1a1a1a;
+            --silver-light: #e8e8e8;
+            --silver-medium: #d3d3d3;
+            --silver-dark: #c0c0c0;
+            --grey-accent: #4a4a4a;
+            --white-pure: #ffffff;
+            --accent-gold: #d4af37;
+            --accent-teal: #2d8b9f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--black-primary) 0%, var(--charcoal) 100%);
+            color: var(--silver-light);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(45, 139, 159, 0.05) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--silver-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: var(--silver-medium);
+            letter-spacing: 0.5px;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--charcoal);
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            border: 1px solid var(--silver-dark);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold) 0%, var(--accent-teal) 100%);
+            transition: width 0.4s ease;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, var(--charcoal) 0%, #252525 100%);
+            border: 1px solid var(--silver-dark);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            font-size: 0.9em;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--white-pure);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            position: relative;
+        }
+
+        .option input[type="radio"] {
+            display: none;
+        }
+
+        .option label {
+            display: block;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px solid var(--silver-dark);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.05em;
+            color: var(--silver-light);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(45, 139, 159, 0.15) 100%);
+            border-color: var(--accent-gold);
+            color: var(--white-pure);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translateX(10px);
+        }
+
+        .option label:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-prev {
+            background: var(--grey-accent);
+            color: var(--white-pure);
+            flex: 1;
+        }
+
+        .btn-prev:hover {
+            background: var(--silver-dark);
+            transform: translateX(-5px);
+        }
+
+        .btn-next, .btn-submit {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-teal) 100%);
+            color: var(--black-primary);
+            flex: 1;
+        }
+
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-next:disabled, .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Section */
+        .results-container {
+            display: none;
+        }
+
+        .results-container.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .stress-meter {
+            background: linear-gradient(135deg, var(--charcoal) 0%, #252525 100%);
+            border: 2px solid var(--silver-dark);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .stress-circle {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--white-pure);
+            position: relative;
+            border: 3px solid;
+        }
+
+        .stress-circle.low {
+            background: radial-gradient(circle, rgba(45, 139, 159, 0.3) 0%, rgba(45, 139, 159, 0.05) 100%);
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 30px rgba(45, 139, 159, 0.4);
+        }
+
+        .stress-circle.medium {
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .stress-circle.high {
+            background: radial-gradient(circle, rgba(220, 50, 50, 0.3) 0%, rgba(220, 50, 50, 0.05) 100%);
+            border-color: #dc3232;
+            box-shadow: 0 0 30px rgba(220, 50, 50, 0.4);
+        }
+
+        .stress-label {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        .stress-description {
+            font-size: 1.1em;
+            color: var(--silver-medium);
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            margin-top: 40px;
+        }
+
+        .tips-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, var(--charcoal) 0%, #252525 100%);
+            border: 2px solid var(--silver-dark);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .tip-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .tip-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--white-pure);
+            margin-bottom: 10px;
+        }
+
+        .tip-description {
+            color: var(--silver-medium);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-reset {
+            background: var(--silver-dark);
+            color: var(--black-primary);
+            padding: 15px 40px;
+        }
+
+        .btn-reset:hover {
+            background: var(--silver-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(232, 232, 232, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--silver-medium);
+            font-size: 0.9em;
+            border-top: 1px solid var(--silver-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .question-card {
+                padding: 25px;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .stress-circle {
+                width: 180px;
+                height: 180px;
+                font-size: 2.5em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>✨ STRESS CHECKER</h1>
+            <p>Understand Your Stress Level &amp; Get Personalized Tips</p>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-container active">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="question-card" id="questionCard">
+                <div class="question-number" id="questionNumber">Question 1 of 5</div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options-grid" id="optionsGrid"></div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-prev" id="btnPrev" onclick="previousQuestion()">← Previous</button>
+                <button class="btn-next" id="btnNext" onclick="nextQuestion()">Next →</button>
+                <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()" style="display: none;">Submit & See Results</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-container" id="resultsContainer">
+            <div class="stress-meter">
+                <div class="stress-circle" id="stressCircle">
+                    <span id="stressPercentage">0%</span>
+                </div>
+                <h2 class="stress-label" id="stressLabel"></h2>
+                <p class="stress-description" id="stressDescription"></p>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">💡 Personalized Tips For You</h3>
+                <div class="tips-grid" id="tipsGrid"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-reset" onclick="resetQuiz()">🔄 Take Quiz Again</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💙 Remember: This is not a professional diagnosis. If you're struggling, reach out to a counselor or mental health professional.</p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How often do you feel overwhelmed by academic work?",
+                options: [
+                    { text: "Rarely (1-2 times a month)", value: 1 },
+                    { text: "Sometimes (2-3 times a week)", value: 2 },
+                    { text: "Often (4-5 times a week)", value: 3 },
+                    { text: "Almost always (daily)", value: 4 },
+                    { text: "Extremely overwhelmed", value: 5 }
+                ]
+            },
+            {
+                question: "How well do you sleep during stressful periods?",
+                options: [
+                    { text: "Sleep perfectly fine", value: 1 },
+                    { text: "Minor sleep issues occasionally", value: 2 },
+                    { text: "Moderate sleep disruption", value: 3 },
+                    { text: "Significant insomnia", value: 4 },
+                    { text: "Severe sleep problems", value: 5 }
+                ]
+            },
+            {
+                question: "How do you manage stress and pressure?",
+                options: [
+                    { text: "Excellent coping mechanisms", value: 1 },
+                    { text: "Good management strategies", value: 2 },
+                    { text: "Average, some ups and downs", value: 3 },
+                    { text: "Struggle with coping", value: 4 },
+                    { text: "No effective coping strategies", value: 5 }
+                ]
+            },
+            {
+                question: "How much do social/personal issues affect your well-being?",
+                options: [
+                    { text: "Minimal impact", value: 1 },
+                    { text: "Slight impact", value: 2 },
+                    { text: "Moderate impact", value: 3 },
+                    { text: "Significant impact", value: 4 },
+                    { text: "Overwhelming impact", value: 5 }
+                ]
+            },
+            {
+                question: "How satisfied are you with your overall life balance?",
+                options: [
+                    { text: "Completely satisfied", value: 1 },
+                    { text: "Mostly satisfied", value: 2 },
+                    { text: "Neutral/average", value: 3 },
+                    { text: "Mostly unsatisfied", value: 4 },
+                    { text: "Very dissatisfied", value: 5 }
+                ]
+            }
+        ];
+
+        const stressLevels = {
+            low: {
+                range: [5, 10],
+                label: "Low Stress",
+                color: "low",
+                description: "You're managing well! Your stress levels are healthy. Keep maintaining your positive habits and continue your excellent coping strategies."
+            },
+            medium: {
+                range: [11, 17],
+                label: "Moderate Stress",
+                color: "medium",
+                description: "You're experiencing moderate stress levels. This is normal, but it's important to focus on stress management and self-care practices."
+            },
+            high: {
+                range: [18, 25],
+                label: "High Stress",
+                color: "high",
+                description: "Your stress levels are elevated. Consider reaching out to a counselor or mentor, and prioritize self-care activities immediately."
+            }
+        };
+
+        const tips = {
+            low: [
+                { icon: "🎯", title: "Stay Consistent", description: "Maintain your current routine and healthy habits that keep stress levels low." },
+                { icon: "🌟", title: "Help Others", description: "Share your stress management techniques with friends who might be struggling." },
+                { icon: "📚", title: "Continue Learning", description: "Use this time to pursue interests and hobbies you enjoy." },
+                { icon: "💪", title: "Build Resilience", description: "Prepare for future challenges with confidence." }
+            ],
+            medium: [
+                { icon: "🧘", title: "Practice Mindfulness", description: "Try 10 minutes of meditation or deep breathing exercises daily." },
+                { icon: "📅", title: "Better Planning", description: "Break tasks into smaller, manageable goals with clear deadlines." },
+                { icon: "🚶", title: "Physical Activity", description: "Exercise 30 minutes daily to reduce stress hormones." },
+                { icon: "👥", title: "Social Support", description: "Talk to friends, family, or a counselor about your concerns." },
+                { icon: "⏰", title: "Time Management", description: "Prioritize tasks and avoid overcommitting yourself." },
+                { icon: "🛏️", title: "Better Sleep", description: "Aim for 7-8 hours of sleep and maintain a consistent schedule." }
+            ],
+            high: [
+                { icon: "🆘", title: "Seek Help", description: "Contact your school counselor or a mental health professional immediately." },
+                { icon: "⛔", title: "Say No", description: "It's okay to decline some commitments. Your mental health comes first." },
+                { icon: "🧠", title: "Stress Relief", description: "Practice yoga, meditation, or activities you find calming." },
+                { icon: "💬", title: "Talk It Out", description: "Share your feelings with trusted friends, family, or professionals." },
+                { icon: "⚡", title: "Energy Management", description: "Take breaks regularly and avoid burnout." },
+                { icon: "🎵", title: "Creative Outlets", description: "Express yourself through music, art, writing, or other hobbies." },
+                { icon: "🚫", title: "Reduce Triggers", description: "Identify and minimize sources of stress where possible." },
+                { icon: "🌙", title: "Self-Care First", description: "Prioritize sleep, nutrition, and relaxation above all else." }
+            ]
+        };
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function initQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById("questionNumber").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById("questionText").textContent = question.question;
+
+            const optionsGrid = document.getElementById("optionsGrid");
+            optionsGrid.innerHTML = "";
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement("div");
+                optionDiv.className = "option";
+                optionDiv.innerHTML = `
+                    <input type="radio" id="option${index}" name="question${currentQuestion}" value="${option.value}">
+                    <label for="option${index}">${option.text}</label>
+                `;
+                optionsGrid.appendChild(optionDiv);
+
+                if (answers[currentQuestion] !== undefined) {
+                    const radio = document.getElementById(`option${index}`);
+                    if (parseInt(radio.value) === answers[currentQuestion]) {
+                        radio.checked = true;
+                    }
+                }
+            });
+
+            updateProgressBar();
+            updateButtonStates();
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById("progressFill").style.width = progress + "%";
+        }
+
+        function updateButtonStates() {
+            const btnPrev = document.getElementById("btnPrev");
+            const btnNext = document.getElementById("btnNext");
+            const btnSubmit = document.getElementById("btnSubmit");
+
+            btnPrev.disabled = currentQuestion === 0;
+            
+            const selectedOption = document.querySelector('input[type="radio"]:checked');
+            
+            if (currentQuestion === questions.length - 1) {
+                btnNext.style.display = "none";
+                btnSubmit.style.display = "block";
+                btnSubmit.disabled = !selectedOption;
+            } else {
+                btnNext.style.display = "block";
+                btnSubmit.style.display = "none";
+                btnNext.disabled = !selectedOption;
+            }
+        }
+
+        function nextQuestion() {
+            const selectedOption = document.querySelector('input[type="radio"]:checked');
+            if (selectedOption) {
+                answers[currentQuestion] = parseInt(selectedOption.value);
+                currentQuestion++;
+                showQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                const selectedOption = document.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    answers[currentQuestion] = parseInt(selectedOption.value);
+                }
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        function submitQuiz() {
+            const selectedOption = document.querySelector('input[type="radio"]:checked');
+            if (selectedOption) {
+                answers[currentQuestion] = parseInt(selectedOption.value);
+            }
+
+            const totalScore = answers.reduce((a, b) => a + b, 0);
+            displayResults(totalScore);
+        }
+
+        function displayResults(totalScore) {
+            document.querySelector(".quiz-container").classList.remove("active");
+            document.getElementById("resultsContainer").classList.add("active");
+
+            const percentage = Math.round((totalScore / 25) * 100);
+            document.getElementById("stressPercentage").textContent = percentage + "%";
+
+            let stressLevel = stressLevels.high;
+            let tipsCategory = "high";
+
+            if (totalScore <= 10) {
+                stressLevel = stressLevels.low;
+                tipsCategory = "low";
+            } else if (totalScore <= 17) {
+                stressLevel = stressLevels.medium;
+                tipsCategory = "medium";
+            }
+
+            document.getElementById("stressCircle").className = `stress-circle ${stressLevel.color}`;
+            document.getElementById("stressLabel").textContent = stressLevel.label;
+            document.getElementById("stressDescription").textContent = stressLevel.description;
+
+            const tipsGrid = document.getElementById("tipsGrid");
+            tipsGrid.innerHTML = "";
+
+            tips[tipsCategory].forEach(tip => {
+                const tipCard = document.createElement("div");
+                tipCard.className = "tip-card";
+                tipCard.innerHTML = `
+                    <div class="tip-icon">${tip.icon}</div>
+                    <div class="tip-title">${tip.title}</div>
+                    <div class="tip-description">${tip.description}</div>
+                `;
+                tipsGrid.appendChild(tipCard);
+            });
+        }
+
+        function resetQuiz() {
+            document.querySelector(".quiz-container").classList.add("active");
+            document.getElementById("resultsContainer").classList.remove("active");
+            initQuiz();
+        }
+
+        // Initialize on page load
+        window.addEventListener("load", initQuiz);
+
+        // Enable submit button when any option is selected
+        document.addEventListener("change", function(e) {
+            if (e.target.type === "radio") {
+                updateButtonStates();
+            }
+        });
+    </script>
+</body>
+</html>

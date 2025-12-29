@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultra-Luxury Breathing Game</title>
+  <style>
+    /* ==== PERPLEXITY DESIGN SYSTEM BASE (TRIMMED TO ESSENTIALS) ==== */
+    :root {
+      --color-white: #ffffff;
+      --color-black: #000000;
+      --color-cream-50: #fcfcf9;
+      --color-cream-100: #fffffd;
+      --color-gray-200: #f5f5f5;
+      --color-gray-300: #a7a9a9;
+      --color-gray-400: #777c7c;
+      --color-slate-500: #626c71;
+      --color-brown-600: #5e5240;
+      --color-charcoal-700: #1f2121;
+      --color-charcoal-800: #262828;
+      --color-slate-900: #13343b;
+      --color-teal-300: #32b8c6;
+      --color-teal-400: #2da6b2;
+      --color-teal-500: #21808d;
+      --color-teal-600: #1d7480;
+      --color-teal-700: #1a6873;
+      --color-teal-800: #2996a1;
+      --color-red-400: #ff5459;
+      --color-red-500: #c0152f;
+      --color-orange-400: #e68161;
+      --color-orange-500: #a84b2f;
+
+      --color-brown-600-rgb: 94, 82, 64;
+      --color-teal-500-rgb: 33, 128, 141;
+      --color-slate-900-rgb: 19, 52, 59;
+      --color-slate-500-rgb: 98, 108, 113;
+      --color-red-500-rgb: 192, 21, 47;
+      --color-red-400-rgb: 255, 84, 89;
+      --color-orange-500-rgb: 168, 75, 47;
+      --color-orange-400-rgb: 230, 129, 97;
+
+      --color-bg-1: rgba(59, 130, 246, 0.08);
+      --color-bg-2: rgba(245, 158, 11, 0.08);
+      --color-bg-3: rgba(34, 197, 94, 0.08);
+      --color-bg-4: rgba(239, 68, 68, 0.08);
+      --color-bg-5: rgba(147, 51, 234, 0.08);
+      --color-bg-6: rgba(249, 115, 22, 0.08);
+      --color-bg-7: rgba(236, 72, 153, 0.08);
+      --color-bg-8: rgba(6, 182, 212, 0.08);
+
+      --color-background: var(--color-cream-50);
+      --color-surface: var(--color-cream-100);
+      --color-text: var(--color-slate-900);
+      --color-text-secondary: var(--color-slate-500);
+      --color-primary: var(--color-teal-500);
+      --color-primary-hover: var(--color-teal-600);
+      --color-primary-active: var(--color-teal-700);
+      --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+      --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-btn-primary-text: var(--color-cream-50);
+      --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-error: var(--color-red-500);
+      --color-success: var(--color-teal-500);
+      --color-warning: var(--color-orange-500);
+      --color-info: var(--color-slate-500);
+      --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+      --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+      --color-success-rgb: 33, 128, 141;
+      --color-error-rgb: 192, 21, 47;
+      --color-warning-rgb: 168, 75, 47;
+      --color-info-rgb: 98, 108, 113;
+
+      --font-family-base: "FKGroteskNeue", system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        monospace;
+      --font-size-xs: 11px;
+      --font-size-sm: 12px;
+      --font-size-base: 14px;
+      --font-size-md: 14px;
+      --font-size-lg: 16px;
+      --font-size-xl: 18px;
+      --font-size-2xl: 20px;
+      --font-size-3xl: 24px;
+      --font-size-4xl: 30px;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 550;
+      --font-weight-bold: 600;
+      --line-height-tight: 1.2;
+      --line-height-normal: 1.5;
+      --letter-spacing-tight: -0.01em;
+
+      --space-0: 0;
+      --space-1: 1px;
+      --space-2: 2px;
+      --space-4: 4px;
+      --space-6: 6px;
+      --space-8: 8px;
+      --space-10: 10px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+
+      --radius-sm: 6px;
+      --radius-base: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+
+      --shadow-md: 0 24px 80px rgba(0, 0, 0, 0.75);
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.6);
+
+      --duration-fast: 150ms;
+      --duration-normal: 260ms;
+      --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --container-lg: 1024px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-gray-400-rgb: 119, 124, 124;
+        --color-teal-300-rgb: 50, 184, 198;
+        --color-gray-300-rgb: 167, 169, 169;
+        --color-gray-200-rgb: 245, 245, 245;
+
+        --color-background: #000000;
+        --color-surface: #0b0b0d;
+        --color-text: #f5f5f5;
+        --color-text-secondary: rgba(213, 213, 213, 0.7);
+        --color-primary: #e8e8e8;
+        --color-primary-hover: #f5f5f5;
+        --color-primary-active: #d3d3d3;
+        --color-secondary: rgba(192, 192, 192, 0.16);
+        --color-secondary-hover: rgba(192, 192, 192, 0.24);
+        --color-secondary-active: rgba(192, 192, 192, 0.3);
+        --color-border: rgba(216, 216, 216, 0.24);
+        --color-error: #ff5459;
+        --color-success: #32b8c6;
+        --color-warning: #e68161;
+        --color-info: #d3d3d3;
+        --color-focus-ring: rgba(200, 200, 200, 0.4);
+        --color-btn-primary-text: #000000;
+        --color-card-border: rgba(192, 192, 192, 0.18);
+        --color-card-border-inner: rgba(192, 192, 192, 0.14);
+        --color-select-caret: rgba(245, 245, 245, 0.8);
+
+        --focus-ring: 0 0 0 3px var(--color-focus-ring);
+        --focus-outline: 2px solid var(--color-primary);
+        --status-bg-opacity: 0.15;
+        --status-border-opacity: 0.35;
+
+        --color-success-rgb: 50, 184, 198;
+        --color-error-rgb: 255, 84, 89;
+        --color-warning-rgb: 230, 129, 97;
+        --color-info-rgb: 211, 211, 211;
+      }
+    }
+
+    [data-color-scheme="dark"] {
+      --color-background: #000000;
+      --color-surface: #0b0b0d;
+      --color-text: #f5f5f5;
+      --color-text-secondary: rgba(213, 213, 213, 0.7);
+      --color-primary: #e8e8e8;
+      --color-primary-hover: #f5f5f5;
+      --color-primary-active: #d3d3d3;
+      --color-secondary: rgba(192, 192, 192, 0.16);
+      --color-secondary-hover: rgba(192, 192, 192, 0.24);
+      --color-secondary-active: rgba(192, 192, 192, 0.3);
+      --color-border: rgba(216, 216, 216, 0.24);
+      --color-btn-primary-text: #000000;
+      --color-card-border: rgba(192, 192, 192, 0.18);
+      --color-card-border-inner: rgba(192, 192, 192, 0.14);
+      --color-focus-ring: rgba(200, 200, 200, 0.4);
+
+      --color-success-rgb: 50, 184, 198;
+      --color-error-rgb: 255, 84, 89;
+      --color-warning-rgb: 230, 129, 97;
+      --color-info-rgb: 211, 211, 211;
+    }
+
+    @font-face {
+      font-family: "FKGroteskNeue";
+      src: url("https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2")
+        format("woff2");
+      font-display: swap;
+    }
+
+    html {
+      font-size: var(--font-size-base);
+      font-family: var(--font-family-base);
+      line-height: var(--line-height-normal);
+      color: var(--color-text);
+      background-color: var(--color-background);
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1a1a1d 0, #000000 55%);
+      color: var(--color-text);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-tight);
+      line-height: var(--line-height-tight);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-lg);
+      margin: auto;
+      padding: 32px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ULTRA-LUXURY SHELL */
+    .shell {
+      background: radial-gradient(circle at 0 0, #333333 0, #050506 36%, #000000 80%);
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid rgba(232, 232, 232, 0.12);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06) 0, transparent 40%),
+        radial-gradient(circle at 100% 0, rgba(255, 255, 255, 0.04) 0, transparent 45%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .shell-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 20px;
+    }
+    @media (max-width: 840px) {
+      .shell-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(
+        from 210deg,
+        #ffffff,
+        #d3d3d3,
+        #a0a0a0,
+        #e8e8e8,
+        #fdfdfd
+      );
+      padding: 2px;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.34),
+        0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #c0c0c0 32%, #1a1a1a 100%);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #e8e8e8;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(211, 211, 211, 0.75);
+    }
+
+    .top-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border: 1px solid rgba(232, 232, 232, 0.24);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.02)
+      );
+      color: rgba(248, 248, 248, 0.84);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(12px);
+    }
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #32b8c6 0, #145861 70%);
+      box-shadow: 0 0 0 1px rgba(50, 184, 198, 0.5),
+        0 0 12px rgba(50, 184, 198, 0.7);
+    }
+
+    /* LEFT: GAME AREA */
+    .panel-main {
+      background: radial-gradient(circle at 50% 0, #16171a 0, #050506 72%);
+      border-radius: 22px;
+      padding: 20px 20px 18px;
+      border: 1px solid rgba(232, 232, 232, 0.16);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-main::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 25% 0, rgba(200, 200, 200, 0.16) 0, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.05) 0, transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .panel-main-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      column-gap: 12px;
+      row-gap: 6px;
+      flex-wrap: wrap;
+    }
+    .title-block h1 {
+      font-size: 24px;
+      color: #f8f8f8;
+    }
+    .title-block p {
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(226, 226, 226, 0.7);
+    }
+
+    .mode-badges {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-chip {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 232, 232, 0.18);
+      color: rgba(240, 240, 240, 0.86);
+      background: radial-gradient(circle at 0 0, #2b2b2f 0, #111115 60%);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mode-chip span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #32b8c6, #e8e8e8);
+    }
+
+    /* Game canvas */
+    .game-zone {
+      margin-top: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 232, 232, 0.16);
+      padding: 16px 12px 14px;
+      background: radial-gradient(circle at 0 0, #242428 0, #070709 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .orb-shell {
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      padding: 3px;
+      background:
+        conic-gradient(
+          from 210deg,
+          rgba(232, 232, 232, 0.95),
+          #c0c0c0,
+          #777777,
+          #e8e8e8,
+          rgba(248, 248, 248, 0.95)
+        );
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 22px 80px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .orb-shell::before {
+      content: "";
+      position: absolute;
+      inset: 7%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, transparent 55%);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .orb-core {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #c0c0c0 30%, #050507 78%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orb-breathing-ring {
+      position: absolute;
+      width: 88%;
+      height: 88%;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow:
+        0 0 25px rgba(255, 255, 255, 0.35),
+        0 0 60px rgba(50, 184, 198, 0.4);
+      opacity: 0.9;
+      transform: scale(0.8);
+      transition: transform 3.4s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 3.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 3.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .orb-breathing-ring.expanding {
+      transform: scale(1);
+      opacity: 1;
+      box-shadow:
+        0 0 40px rgba(255, 255, 255, 0.45),
+        0 0 120px rgba(50, 184, 198, 0.65);
+    }
+
+    .orb-breathing-ring.contracting {
+      transform: scale(0.72);
+      opacity: 0.9;
+      box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(50, 184, 198, 0.4);
+    }
+
+    .orb-center-mark {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffffff 0, #d3d3d3 60%, #7a7a7a 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        0 0 18px rgba(255, 255, 255, 0.8);
+    }
+
+    .orb-metric {
+      position: absolute;
+      inset: 14%;
+      border-radius: inherit;
+      border: 1px dashed rgba(232, 232, 232, 0.18);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .orb-label {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(240, 240, 240, 0.7);
+    }
+
+    .orb-progress-arc {
+      position: absolute;
+      inset: 4%;
+      border-radius: inherit;
+      background: conic-gradient(
+        from -90deg,
+        rgba(232, 232, 232, 0.8) 0deg,
+        rgba(232, 232, 232, 0.8) var(--progress-deg, 0deg),
+        rgba(80, 80, 80, 0.1) var(--progress-deg, 0deg),
+        rgba(80, 80, 80, 0.05) 360deg
+      );
+      mask:
+        radial-gradient(circle at center, transparent 66%, black 66%),
+        radial-gradient(circle at center, black 100%);
+      mask-composite: exclude;
+      opacity: 0.95;
+      pointer-events: none;
+    }
+
+    /* Instruction + controls under orb */
+    .game-footer {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 720px) {
+      .game-footer {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .instruction-card {
+      border-radius: 18px;
+      border: 1px solid rgba(232, 232, 232, 0.14);
+      background: radial-gradient(circle at 0 0, #222226 0, #08080a 70%);
+      padding: 12px 14px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .instruction-primary {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(242, 242, 242, 0.92);
+    }
+    .instruction-secondary {
+      font-size: 12px;
+      color: rgba(222, 222, 222, 0.7);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .mini-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid rgba(232, 232, 232, 0.16);
+      color: rgba(230, 230, 230, 0.8);
+      background: radial-gradient(circle at 0 0, #343438 0, #141417 70%);
+    }
+
+    .controls-card {
+      border-radius: 18px;
+      border: 1px solid rgba(232, 232, 232, 0.2);
+      background: radial-gradient(circle at 100% 0, #26262a 0, #08080a 70%);
+      padding: 10px 13px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #fdfdfd, #e8e8e8);
+      color: #000000;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        0 12px 30px rgba(0, 0, 0, 0.7);
+      transition: transform var(--duration-fast) var(--ease-standard),
+        box-shadow var(--duration-fast) var(--ease-standard),
+        background var(--duration-fast) var(--ease-standard),
+        opacity var(--duration-fast) var(--ease-standard);
+    }
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        0 18px 40px rgba(0, 0, 0, 0.9);
+      background: linear-gradient(135deg, #ffffff, #f2f2f2);
+    }
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.7),
+        0 8px 18px rgba(0, 0, 0, 0.8);
+      background: linear-gradient(135deg, #e8e8e8, #d3d3d3);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow:
+        0 0 0 1px rgba(200, 200, 200, 0.3),
+        0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: rgba(240, 240, 240, 0.82);
+      border: 1px solid rgba(216, 216, 216, 0.45);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.22),
+        0 8px 22px rgba(0, 0, 0, 0.8);
+    }
+    .btn-outline:hover:not(:disabled) {
+      background: radial-gradient(circle at 0 0, #3a3a3e 0, #141417 68%);
+    }
+
+    select {
+      font-family: inherit;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 7px 28px 7px 12px;
+      border: 1px solid rgba(216, 216, 216, 0.45);
+      background:
+        radial-gradient(circle at 0 0, #3a3a3e 0, #121214 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e8e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")
+          no-repeat right 9px center/13px;
+      color: rgba(235, 235, 235, 0.9);
+      appearance: none;
+      cursor: pointer;
+      min-width: 150px;
+    }
+    select:focus-visible {
+      outline: 2px solid rgba(232, 232, 232, 0.9);
+      outline-offset: 2px;
+    }
+
+    /* RIGHT: STATS + GUIDANCE */
+    .panel-side {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .panel-card {
+      border-radius: 20px;
+      border: 1px solid rgba(232, 232, 232, 0.16);
+      background: radial-gradient(circle at 100% 0, #27272b 0, #070709 70%);
+      padding: 14px 15px 13px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at 100% 0, rgba(255, 255, 255, 0.12) 0, transparent 50%);
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .panel-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(246, 246, 246, 0.92);
+    }
+    .card-caption {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(220, 220, 220, 0.6);
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .metric-pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      border: 1px solid rgba(232, 232, 232, 0.2);
+      background: radial-gradient(circle at 0 0, #323237 0, #151519 70%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .metric-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(230, 230, 230, 0.64);
+    }
+    .metric-value {
+      font-size: 13px;
+      color: rgba(250, 250, 250, 0.96);
+    }
+
+    .metric-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #32b8c6 0, #091e21 80%);
+      box-shadow: 0 0 14px rgba(50, 184, 198, 0.8);
+    }
+    .metric-dot-soft {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #e68161 0, #2a1810 80%);
+      box-shadow: 0 0 14px rgba(230, 129, 97, 0.9);
+    }
+
+    .progress-bar {
+      margin-top: 8px;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #101014, #242428);
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: var(--progress-percent, 0%);
+      background: linear-gradient(90deg, #32b8c6, #e8e8e8);
+      box-shadow: 0 0 12px rgba(50, 184, 198, 0.7);
+      transition: width 220ms var(--ease-standard);
+    }
+
+    .mini-hint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(230, 230, 230, 0.7);
+    }
+    .mini-hint span {
+      color: #e8e8e8;
+    }
+
+    .guide-list {
+      margin: 8px 0 0;
+      padding-left: 16px;
+      font-size: 12px;
+      color: rgba(230, 230, 230, 0.82);
+    }
+    .guide-list li {
+      margin-bottom: 4px;
+    }
+
+    .footer-bar {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(222, 222, 222, 0.6);
+    }
+    .footer-bar span strong {
+      color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    .badge-soft {
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid rgba(216, 216, 216, 0.2);
+      background: radial-gradient(circle at 0 0, #323237 0, #151519 70%);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(238, 238, 238, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-soft-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #32b8c6 0, #061416 80%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shell" aria-label="Breathing exercise game for stress management">
+      <div class="top-bar">
+        <div class="brand-lockup">
+          <div class="brand-mark">
+            <div class="brand-mark-inner"></div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">Auric Breath</div>
+            <div class="brand-subtitle">Ultra-Luxury Student Calm</div>
+          </div>
+        </div>
+
+        <div class="top-meta">
+          <div class="pill" aria-label="Session status">
+            <span class="pill-dot"></span>
+            LIVE SESSION
+          </div>
+          <div class="pill" aria-label="Theme">
+            DARK / METALLIC SILVER
+          </div>
+        </div>
+      </div>
+
+      <div class="shell-inner">
+        <!-- LEFT: GAME -->
+        <section class="panel-main" aria-label="Breathing orb game">
+          <div class="panel-main-inner">
+            <div class="title-row">
+              <div class="title-block">
+                <h1 id="modeTitle">Guided Breathing Game</h1>
+                <p id="modeSubtitle">
+                  Match your breath to the orb. Earn calm points for perfect timing.
+                </p>
+                <div class="mode-badges" aria-hidden="true">
+                  <div class="mode-chip">
+                    <span class="dot"></span>
+                    focus mode
+                  </div>
+                  <div class="mode-chip">
+                    <span class="dot"></span>
+                    study reset
+                  </div>
+                </div>
+              </div>
+
+              <div class="mode-badges" style="margin-top: 4px;">
+                <div class="mode-chip" aria-label="Current difficulty">
+                  <span class="dot"></span>
+                  <span id="difficultyLabel">standard 4-4-4</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-zone">
+              <div class="orb-shell">
+                <div
+                  id="orbRing"
+                  class="orb-breathing-ring"
+                  aria-hidden="true"
+                ></div>
+                <div class="orb-core">
+                  <div class="orb-progress-arc" id="orbProgress"></div>
+                  <div class="orb-metric"></div>
+                  <div class="orb-center-mark"></div>
+                  <div class="orb-label" id="phaseLabel" aria-live="polite">
+                    Ready
+                  </div>
+                  <span class="sr-only" id="phaseLabelSr">Ready</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-footer">
+              <div class="instruction-card">
+                <div class="instruction-primary" id="instructionPrimary">
+                  Align your breath with the orb
+                </div>
+                <div class="instruction-secondary" id="instructionSecondary">
+                  Inhale as the ring expands, hold at the top, exhale as it contracts. Tap “Perfect Timing” when your breath and the orb are fully in sync.
+                </div>
+                <div class="tag-row" aria-hidden="true">
+                  <div class="mini-tag">3–5 minute micro reset</div>
+                  <div class="mini-tag">designed for late-night study sprints</div>
+                </div>
+              </div>
+
+              <div class="controls-card" aria-label="Session controls">
+                <div class="control-row" style="justify-content: space-between;">
+                  <select id="patternSelect" aria-label="Select breathing pattern">
+                    <option value="standard">Standard · 4-4-4</option>
+                    <option value="box">Box Breath · 4-4-4-4</option>
+                    <option value="slow">Slow Calm · 5-5-5</option>
+                  </select>
+                  <button id="toggleBtn" class="btn">
+                    Start Session
+                  </button>
+                </div>
+                <div class="control-row" style="justify-content: space-between;">
+                  <button id="perfectBtn" class="btn-outline" disabled>
+                    Perfect Timing
+                  </button>
+                  <button id="resetBtn" class="btn-outline">
+                    Reset Score
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: METRICS & GUIDANCE -->
+        <section class="panel-side" aria-label="Stats and guidance">
+          <article class="panel-card" aria-label="Calm score and streak">
+            <div class="panel-card-inner">
+              <div class="card-header-row">
+                <div>
+                  <div class="card-title">Calm Scoreboard</div>
+                  <div class="card-caption">live feedback on your nervous system reset</div>
+                </div>
+                <div class="badge-soft">
+                  <span class="badge-soft-dot"></span>
+                  student mode
+                </div>
+              </div>
+
+              <div class="metric-row">
+                <div class="metric-pill">
+                  <div class="metric-dot"></div>
+                  <div>
+                    <div class="metric-label">Calm Points</div>
+                    <div id="scoreValue" class="metric-value">000</div>
+                  </div>
+                </div>
+                <div class="metric-pill">
+                  <div class="metric-dot-soft"></div>
+                  <div>
+                    <div class="metric-label">Perfect Streak</div>
+                    <div id="streakValue" class="metric-value">0</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="progress-bar" aria-label="Session completion">
+                <div
+                  id="sessionProgress"
+                  class="progress-bar-fill"
+                  style="--progress-percent: 0%;"
+                ></div>
+              </div>
+
+              <p class="mini-hint">
+                Hit <span>Perfect Timing</span> when your lungs feel synced with the orb. The smoother your rhythm, the higher your streak.
+              </p>
+            </div>
+          </article>
+
+          <article class="panel-card" aria-label="Stress reset protocol">
+            <div class="panel-card-inner">
+              <div class="card-header-row">
+                <div>
+                  <div class="card-title">Stress Reset Protocol</div>
+                  <div class="card-caption">3–step sequence for exam-week overload</div>
+                </div>
+              </div>
+              <ol class="guide-list">
+                <li>
+                  <strong>Step 1 — Commit to 10 cycles.</strong>
+                  Treat this like a mini game level: stay with the orb until you see your calm points climb.
+                </li>
+                <li>
+                  <strong>Step 2 — Zero multitasking.</strong>
+                  No phone, no tabs — just you, the orb, and your breath. Let your mind follow the motion.
+                </li>
+                <li>
+                  <strong>Step 3 — Re-enter in slow motion.</strong>
+                  When done, move slowly, sip water, then gently switch back to your work.
+                </li>
+              </ol>
+
+              <div class="footer-bar">
+                <span>
+                  Today’s goal:
+                  <strong id="goalLabel">Score 300 calm points</strong>
+                </span>
+                <span>Best streak: <strong id="bestStreakLabel">0</strong></span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const phaseLabel = document.getElementById("phaseLabel");
+      const phaseLabelSr = document.getElementById("phaseLabelSr");
+      const orbRing = document.getElementById("orbRing");
+      const orbProgress = document.getElementById("orbProgress");
+      const toggleBtn = document.getElementById("toggleBtn");
+      const perfectBtn = document.getElementById("perfectBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const patternSelect = document.getElementById("patternSelect");
+
+      const scoreValue = document.getElementById("scoreValue");
+      const streakValue = document.getElementById("streakValue");
+      const bestStreakLabel = document.getElementById("bestStreakLabel");
+      const sessionProgress = document.getElementById("sessionProgress");
+      const difficultyLabel = document.getElementById("difficultyLabel");
+      const modeTitle = document.getElementById("modeTitle");
+      const modeSubtitle = document.getElementById("modeSubtitle");
+      const goalLabel = document.getElementById("goalLabel");
+
+      const instructionPrimary = document.getElementById("instructionPrimary");
+      const instructionSecondary =
+        document.getElementById("instructionSecondary");
+
+      let pattern = "standard";
+      let playing = false;
+      let phase = "ready"; // inhale, hold, exhale, ready
+      let cycleCount = 0;
+      let score = 0;
+      let streak = 0;
+      let bestStreak = 0;
+      let phaseStartTime = 0;
+      let phaseDuration = 0;
+      let totalCyclesTarget = 18; // session length target
+      let animationFrameId = null;
+
+      const patterns = {
+        standard: {
+          label: "standard 4-4-4",
+          phases: [
+            { name: "inhale", seconds: 4 },
+            { name: "hold", seconds: 4 },
+            { name: "exhale", seconds: 4 },
+          ],
+          title: "Guided Breathing Game",
+          subtitle:
+            "Match your breath to the orb. Earn calm points for perfect timing.",
+          goal: "Score 300 calm points",
+        },
+        box: {
+          label: "box 4-4-4-4",
+          phases: [
+            { name: "inhale", seconds: 4 },
+            { name: "hold", seconds: 4 },
+            { name: "exhale", seconds: 4 },
+            { name: "hold", seconds: 4 },
+          ],
+          title: "Box Breathing Game",
+          subtitle:
+            "Classic 4×4 box breath pattern. Perfect for high-stress exam weeks.",
+          goal: "Complete 12 box cycles",
+        },
+        slow: {
+          label: "slow calm 5-5-5",
+          phases: [
+            { name: "inhale", seconds: 5 },
+            { name: "hold", seconds: 5 },
+            { name: "exhale", seconds: 5 },
+          ],
+          title: "Slow Calm Mode",
+          subtitle:
+            "Longer, slower breaths to downshift your nervous system before sleep or late-night study.",
+          goal: "Stay for 10 slow cycles",
+        },
+      };
+
+      function updatePattern(newPattern) {
+        pattern = newPattern;
+        const cfg = patterns[pattern];
+        difficultyLabel.textContent = cfg.label;
+        modeTitle.textContent = cfg.title;
+        modeSubtitle.textContent = cfg.subtitle;
+        goalLabel.textContent = cfg.goal;
+
+        if (!playing) {
+          phase = "ready";
+          updatePhaseLabel("Ready");
+          updateOrbForPhase();
+          updateProgress(0);
+        }
+      }
+
+      function formatScore(num) {
+        return String(num).padStart(3, "0");
+      }
+
+      function updatePhaseLabel(text) {
+        phaseLabel.textContent = text;
+        phaseLabelSr.textContent = text;
+      }
+
+      function updateOrbForPhase() {
+        if (phase === "ready") {
+          orbRing.classList.remove("expanding", "contracting");
+          orbRing.style.opacity = "0.9";
+          return;
+        }
+
+        if (phase === "inhale") {
+          orbRing.classList.remove("contracting");
+          void orbRing.offsetWidth;
+          orbRing.classList.add("expanding");
+        } else if (phase === "exhale") {
+          orbRing.classList.remove("expanding");
+          void orbRing.offsetWidth;
+          orbRing.classList.add("contracting");
+        } else {
+          orbRing.classList.remove("expanding", "contracting");
+          orbRing.style.opacity = "1";
+        }
+      }
+
+      function getCurrentPhaseConfig() {
+        const cfg = patterns[pattern];
+        const totalPhases = cfg.phases.length;
+
+        if (!playing || phase === "ready") {
+          return { name: "ready", seconds: 0 };
+        }
+
+        let idx = 0;
+        if (phase === "inhale") idx = 0;
+        else if (phase === "hold") idx = 1;
+        else if (phase === "exhale") idx = 2;
+
+        if (totalPhases === 4 && phase === "hold" && phaseStartTime !== 0) {
+          const elapsed = (performance.now() - phaseStartTime) / 1000;
+          const half = cfg.phases[1].seconds;
+          idx = elapsed < half ? 1 : 3;
+        }
+
+        return cfg.phases[idx] || cfg.phases[0];
+      }
+
+      function startPhase(newPhase) {
+        phase = newPhase;
+        const cfg = getCurrentPhaseConfig();
+        phaseDuration = cfg.seconds;
+        phaseStartTime = performance.now();
+
+        if (phase === "inhale") {
+          updatePhaseLabel("Inhale");
+          instructionPrimary.textContent = "Inhale as the orb expands";
+          instructionSecondary.textContent =
+            "Fill your lungs from the base up. Imagine the orb gently pulling your breath outward.";
+        } else if (phase === "hold") {
+          updatePhaseLabel("Hold");
+          instructionPrimary.textContent = "Hold at the top";
+          instructionSecondary.textContent =
+            "No tension in the shoulders, no clenching. Just a light pause before the release.";
+        } else if (phase === "exhale") {
+          updatePhaseLabel("Exhale");
+          instructionPrimary.textContent = "Exhale as the orb contracts";
+          instructionSecondary.textContent =
+            "Let the breath leave slowly through the nose or pursed lips. Soften your jaw as the ring shrinks.";
+        }
+
+        updateOrbForPhase();
+      }
+
+      function nextPhase() {
+        const cfg = patterns[pattern];
+        const phasesOrder = cfg.phases.map((p) => p.name);
+
+        if (phase === "ready") {
+          phase = phasesOrder[0];
+          startPhase(phase);
+          return;
+        }
+
+        const currentIndex = phasesOrder.indexOf(phase);
+        const nextIndex = (currentIndex + 1) % phasesOrder.length;
+        const nextName = phasesOrder[nextIndex];
+
+        if (nextIndex === 0) {
+          cycleCount += 1;
+          updateSessionProgress();
+        }
+
+        startPhase(nextName);
+      }
+
+      function updateSessionProgress() {
+        const progress = Math.min(
+          100,
+          (cycleCount / totalCyclesTarget) * 100
+        );
+        sessionProgress.style.setProperty(
+          "--progress-percent",
+          progress.toFixed(1) + "%"
+        );
+      }
+
+      function updateProgress(angleDeg) {
+        orbProgress.style.setProperty(
+          "--progress-deg",
+          angleDeg.toFixed(1) + "deg"
+        );
+      }
+
+      function loop() {
+        if (!playing || phase === "ready") {
+          updateProgress(0);
+          return;
+        }
+
+        const now = performance.now();
+        const elapsed = (now - phaseStartTime) / 1000;
+        const cfg = getCurrentPhaseConfig();
+        const duration = cfg.seconds || 1;
+        const t = Math.min(1, elapsed / duration);
+        const angle = t * 360;
+        updateProgress(angle);
+
+        if (elapsed >= duration) {
+          nextPhase();
+        }
+
+        animationFrameId = requestAnimationFrame(loop);
+      }
+
+      function startSession() {
+        if (playing) return;
+        playing = true;
+        phase = "inhale";
+        cycleCount = 0;
+        updateSessionProgress();
+
+        toggleBtn.textContent = "Pause Session";
+        perfectBtn.disabled = false;
+
+        startPhase("inhale");
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(loop);
+      }
+
+      function pauseSession() {
+        playing = false;
+        toggleBtn.textContent = "Resume Session";
+        perfectBtn.disabled = true;
+        updatePhaseLabel("Paused");
+        orbRing.classList.remove("expanding", "contracting");
+      }
+
+      function stopSession() {
+        playing = false;
+        phase = "ready";
+        cycleCount = 0;
+        updateSessionProgress();
+        toggleBtn.textContent = "Start Session";
+        perfectBtn.disabled = true;
+        updatePhaseLabel("Ready");
+        instructionPrimary.textContent = "Align your breath with the orb";
+        instructionSecondary.textContent =
+          "Inhale as the ring expands, hold at the top, exhale as it contracts. Tap “Perfect Timing” when your breath and the orb are fully in sync.";
+        updateOrbForPhase();
+        updateProgress(0);
+        cancelAnimationFrame(animationFrameId);
+      }
+
+      function handlePerfectTiming() {
+        if (!playing || phase === "ready") return;
+
+        const now = performance.now();
+        const elapsed = (now - phaseStartTime) / 1000;
+        const cfg = getCurrentPhaseConfig();
+        const duration = cfg.seconds || 1;
+        const t = Math.min(1, elapsed / duration);
+        const offsetFromCenter = Math.abs(t - 0.5);
+
+        let baseAward = 0;
+        if (offsetFromCenter < 0.08) baseAward = 35;
+        else if (offsetFromCenter < 0.16) baseAward = 25;
+        else if (offsetFromCenter < 0.25) baseAward = 15;
+        else baseAward = 7;
+
+        const bonusMultiplier = 1 + Math.min(streak, 12) * 0.06;
+        const points = Math.round(baseAward * bonusMultiplier);
+
+        if (baseAward >= 25) {
+          streak += 1;
+        } else {
+          streak = Math.max(0, streak - 1);
+        }
+        score += points;
+
+        bestStreak = Math.max(bestStreak, streak);
+
+        scoreValue.textContent = formatScore(score);
+        streakValue.textContent = String(streak);
+        bestStreakLabel.textContent = String(bestStreak);
+
+        orbRing.style.boxShadow =
+          "0 0 40px rgba(255,255,255,0.6), 0 0 130px rgba(50,184,198,0.9)";
+        orbRing.style.transition =
+          "box-shadow 260ms cubic-bezier(0.16,1,0.3,1)";
+        setTimeout(() => {
+          orbRing.style.transition =
+            "transform 3.4s cubic-bezier(0.16,1,0.3,1), opacity 3.4s cubic-bezier(0.16,1,0.3,1), box-shadow 3.4s cubic-bezier(0.16,1,0.3,1)";
+          updateOrbForPhase();
+        }, 260);
+      }
+
+      function resetScore() {
+        score = 0;
+        streak = 0;
+        scoreValue.textContent = formatScore(score);
+        streakValue.textContent = "0";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        if (!playing && phase === "ready") {
+          startSession();
+        } else if (playing) {
+          pauseSession();
+        } else {
+          playing = true;
+          toggleBtn.textContent = "Pause Session";
+          perfectBtn.disabled = false;
+          phaseStartTime = performance.now();
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(loop);
+          updatePhaseLabel(
+            phase.charAt(0).toUpperCase() + phase.slice(1)
+          );
+        }
+      });
+
+      perfectBtn.addEventListener("click", handlePerfectTiming);
+      resetBtn.addEventListener("click", () => {
+        resetScore();
+        stopSession();
+      });
+
+      patternSelect.addEventListener("change", (e) => {
+        updatePattern(e.target.value);
+      });
+
+      updatePattern(pattern);
+    })();
+  </script>
+</body>
+</html>
